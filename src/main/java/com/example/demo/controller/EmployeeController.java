@@ -32,9 +32,8 @@ public class EmployeeController {
     }
 
     // CREATE employee
-    // BUG: Missing @RequestBody annotation - will cause 400 Bad Request
     @PostMapping
-    public ResponseEntity<Employee> createEmployee(Employee employee) {
+    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
         Employee created = employeeService.createEmployee(employee);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
@@ -55,8 +54,7 @@ public class EmployeeController {
     public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
         try {
             employeeService.deleteEmployee(id);
-            // BUG: Returns 200 OK instead of 204 NO_CONTENT for delete operations
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

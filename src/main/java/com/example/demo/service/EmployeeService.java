@@ -26,8 +26,7 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
-    // BUG: update doesn't set the ID on the employee before saving,
-    // so it creates a new record instead of updating
+    // Update employee with all field changes
     public Employee updateEmployee(Long id, Employee employeeDetails) {
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Employee not found with id: " + id));
@@ -36,7 +35,7 @@ public class EmployeeService {
         employee.setLastName(employeeDetails.getLastName());
         employee.setEmail(employeeDetails.getEmail());
         employee.setDepartment(employeeDetails.getDepartment());
-        // BUG: salary is not updated (missing setSalary call)
+        employee.setSalary(employeeDetails.getSalary());
 
         return employeeRepository.save(employee);
     }

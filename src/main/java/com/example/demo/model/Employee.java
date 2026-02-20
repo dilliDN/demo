@@ -31,9 +31,8 @@ public class Employee {
         this.salary = salary;
     }
 
-    // BUG: getId returns null always (wrong field returned)
     public Long getId() {
-        return null;
+        return id;
     }
 
     public void setId(Long id) {
